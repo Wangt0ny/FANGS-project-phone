@@ -11,8 +11,8 @@ let dumplingsType = projectDataList.filter((x) => {return x.type === "dumplings"
 let basket = JSON.parse(localStorage.getItem("data")) || [] ;
 
 //卡片生成模板
-let generateCardMeat = () => {
-    return shopMeat.innerHTML = meatType.map((x) => {//slice選取projectDataList內部分物件
+let generateMenuCard = (dom, datalist) => {
+    return dom.innerHTML = datalist.map((x) => {//slice選取projectDataList內部分物件
         let {img, product, price, id} = x;
         //從本機儲存裡找資料
         let search = basket.find((x) => x.id === id) || [];
@@ -39,97 +39,10 @@ let generateCardMeat = () => {
     }).join("")
 
 }
-generateCardMeat();
-
-let generateCardSeafood = () => {
-    return shopSeafood.innerHTML = seafoodType.map((x) => {//slice選取projectDataList內部分物件
-        let {img, product, price, id} = x;
-        //從本機儲存裡找資料
-        let search = basket.find((x) => x.id === id) || [];
-        return `
-            <div class="col-12 col-lg-3 col-md-6 col-sm-6 mb-3" id=project-id-${id}>
-                <div class="item">
-                        <div class="mycard">
-                            <img class="card-img" src=${img} alt="project-pic"/>
-                            <div class="mycard-body">
-                                <div class="body-info">
-                                    <h4 class="card-title">${product}</h4>
-                                    <p class="card-text">$${price}</p>
-                                </div>
-                                <div class="project-btn-group">
-                                    <i class="bi bi-dash" onclick="decrement(${id})"></i>
-                                    <div id=${id} class="project-count">${search.item === undefined ? 0 : search.item}</div>
-                                    <i class="bi bi-plus" onclick="increment(${id})"></i>
-                                </div>
-                            </div>
-                        </div>   
-                </div>
-            </div>
-        `
-    }).join("")
-
-}
-generateCardSeafood();
-
-let generateCardVegetable = () => {
-    return shopVegetable.innerHTML = vegetableType.map((x) => {//slice選取projectDataList內部分物件
-        let {img, product, price, id} = x;
-        //從本機儲存裡找資料
-        let search = basket.find((x) => x.id === id) || [];
-        return `
-            <div class="col-12 col-lg-3 col-md-6 col-sm-6 mb-3" id=project-id-${id}>
-                <div class="item">
-                        <div class="mycard">
-                            <img class="card-img" src=${img} alt="project-pic"/>
-                            <div class="mycard-body">
-                                <div class="body-info">
-                                    <h4 class="card-title">${product}</h4>
-                                    <p class="card-text">$${price}</p>
-                                </div>
-                                <div class="project-btn-group">
-                                    <i class="bi bi-dash" onclick="decrement(${id})"></i>
-                                    <div id=${id} class="project-count">${search.item === undefined ? 0 : search.item}</div>
-                                    <i class="bi bi-plus" onclick="increment(${id})"></i>
-                                </div>
-                            </div>
-                        </div>   
-                </div>
-            </div>
-        `
-    }).join("")
-
-}
-generateCardVegetable();
-
-let generateCardDumplings = () => {
-    return shopDumplings.innerHTML = dumplingsType.map((x) => {//slice選取projectDataList內部分物件
-        let {img, product, price, id} = x;
-        //從本機儲存裡找資料
-        let search = basket.find((x) => x.id === id) || [];
-        return `
-            <div class="col-12 col-lg-3 col-md-6 col-sm-6 mb-3" id=project-id-${id}>
-                <div class="item">
-                        <div class="mycard">
-                            <img class="card-img" src=${img} alt="project-pic"/>
-                            <div class="mycard-body">
-                                <div class="body-info">
-                                    <h4 class="card-title">${product}</h4>
-                                    <p class="card-text">$${price}</p>
-                                </div>
-                                <div class="project-btn-group">
-                                    <i class="bi bi-dash" onclick="decrement(${id})"></i>
-                                    <div id=${id} class="project-count">${search.item === undefined ? 0 : search.item}</div>
-                                    <i class="bi bi-plus" onclick="increment(${id})"></i>
-                                </div>
-                            </div>
-                        </div>   
-                </div>
-            </div>
-        `
-    }).join("")
-
-}
-generateCardDumplings();
+generateMenuCard(shopMeat, meatType);
+generateMenuCard(shopSeafood, seafoodType);
+generateMenuCard(shopVegetable, vegetableType);
+generateMenuCard(shopDumplings, dumplingsType);
 
 
 
