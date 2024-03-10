@@ -22,7 +22,7 @@ body {
 .list {
     list-style: none;
     display: flex;
-    height: 49px;
+    height: min-content;
     top: 86px;
     padding: 0;
     margin: 0;
@@ -32,19 +32,22 @@ body {
     border-bottom: 1px solid rgba(54, 27, 18, 1);
     position: fixed;
     width: 100%;
-    background-color: #fff;
+    background-color: white;
+    z-index: 99;
 }
 
 .list a {
     text-decoration: none;
     color: black;
+    border-bottom: 5px solid transparent;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    padding: 8px;
 }
 
-.list li {
-    padding: 8px 0px;
-}
-
-.list li:hover {
+.list a:hover {
     border-bottom: 5px solid rgba(247, 230, 174, 1);
 }
 

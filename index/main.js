@@ -55,7 +55,7 @@ let generateHotPotCard = (dom, datalist) => {
         return `
             <div class="col-12 col-lg-6">
                 <input type="radio" id=${id} name="hotPot" value=${id}>
-                <label class="hotPot-label" for=${id}>
+                <label class="hotPot-label" for=${id} onclick="orderHotPot(${id})">
                     <span class="hotPot-radio"></span>
                     <img class="card-img" src="${img}"/>
                     <div class="body-info">
@@ -71,12 +71,48 @@ let generateHotPotCard = (dom, datalist) => {
 }
 generateHotPotCard(shopHotPot, hotPotType);
 
-let hotPotLabel = document.getElementsByClassName("hotPot-label");
-    for (let i = 0; i < hotPotLabel.length; i++) {
-        hotPotLabel[i].addEventListener("click", function() {
-            console.log(this.previousElementSibling.value)
+let orderHotPot = (id) => {
+    //以訂單id去火鍋商品資料內核對
+    let search = basket.find((x) => { 
+        return hotPotType.find((y) => {
+            return x.id === y.id
         })
+    })
+
+    if (search === undefined) {
+        basket.push({
+            id: id.id,
+            item: 1,
+        });
     }
+    else{
+        search.id = id.id
+    }
+    generateCartItem(shoppingCart);
+    generateCartItem(cartContainer);
+    generateCartButton();
+    cartTotal();
+    totalPrice();
+
+    localStorage.setItem("data", JSON.stringify(basket));
+}
+
+//check box 顯示
+let itemChecked = () => {
+    let search = basket.find((x) => { 
+        return hotPotType.find((y) => {
+            return x.id === y.id
+        })
+    })
+
+    if (search === undefined) {
+        return
+    }
+    else{
+        document.getElementById(search.id).setAttribute("checked", "checked");
+    } 
+}
+itemChecked();
 
 
 //增量數量函式
@@ -255,6 +291,7 @@ let removeItem = (id) => {
     generateCartButton();
     cartTotal();
     updata(productItem.id);
+    generateHotPotCard(shopHotPot, hotPotType);
     localStorage.setItem("data", JSON.stringify(basket));
 }
 
@@ -288,10 +325,11 @@ let clearCart = () => {
     generateCartButton();
     cartTotal();
     totalPrice();
-    generateCardMeat();
-    generateCardSeafood();
-    generateCardVegetable();
-    generateCardDumplings();
+    generateMenuCard(shopMeat, meatType);
+    generateMenuCard(shopSeafood, seafoodType);
+    generateMenuCard(shopVegetable, vegetableType);
+    generateMenuCard(shopDumplings, dumplingsType);
+    generateHotPotCard(shopHotPot, hotPotType);
     
     localStorage.setItem("data", JSON.stringify(basket)); 
 }
