@@ -1,4 +1,28 @@
 let projectDataList = [
+    {
+        id: "hotPot01",
+        img: "../image/product/product01.webp",
+        price: 1559,
+        product: "蔬菜鍋物",
+        type: "hotPot",
+    }
+    ,
+    {
+        id: "hotPot02",
+        img: "../image/product/product01.webp",
+        price: 1559,
+        product: "海鮮鍋物",
+        type: "hotPot",
+    }
+    ,
+    {
+        id: "hotPot03",
+        img: "../image/product/product01.webp",
+        price: 1559,
+        product: "鮮肉鍋物",
+        type: "hotPot",
+    }
+    ,
     {   
         id: "product01",
         img: "../image/product/product01.webp",

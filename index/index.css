@@ -71,8 +71,6 @@ body {
     flex-direction: row;
     border-bottom: 1px solid rgba(54, 27, 18, 1);
     padding-bottom: 8px;
-    /* border-radius: 10px;
-    overflow: hidden; */
 }
 
 .card-img {
@@ -82,12 +80,9 @@ body {
 
 .mycard-body {
     display: flex;
-    /* flex-direction: column; */
-    /* margin-left: 20px; */
     width: 100%;
     height: 180px;
     gap: 10px;
-    /* justify-content: space-around; */
     align-items: center;
 }
 
@@ -95,6 +90,7 @@ body {
     flex: 55%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .card-title {
@@ -195,4 +191,49 @@ body {
     text-align: end;
     display: inline-block;
     width: 100px;
+}
+
+/* 鍋物 */
+
+input[name="hotPot"] {
+    visibility: hidden;
+    display: none;
+}
+
+input[name="hotPot"]:checked + .hotPot-label .hotPot-radio::after{
+    opacity: 1;
+}
+
+.hotPot-label {
+    display: flex;
+    margin-bottom: 10px;
+    position: relative;
+    border-bottom: 1px solid rgba(54, 27, 18, 1);
+}
+
+.hotPot-radio {
+    border: 4px solid rgba(247, 230, 174, 1);
+    border-radius: 100%;
+    aspect-ratio: 1 / 1;
+    height: 1.5em;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hotPot-radio::after {
+    content: "";
+    display: inline-block;
+    aspect-ratio: 1 / 1;
+    height: 0.75em;
+    border-radius: 100%;
+    background-color: rgba(247, 230, 174, 1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: inset 0 0 5px 1px rgb(220, 188, 93);
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
 }
