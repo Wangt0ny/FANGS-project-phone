@@ -179,8 +179,6 @@ let updata = (id) => {
     
     cartTotal();
     totalPrice();
-    
-    // generateCartItem(shoppingCart);
 };
 
 
@@ -189,7 +187,6 @@ let orderCount = document.getElementById("order-count");
 let cartTotal = () => {
     let itemAmount = basket.map((x) => x.item).reduce((x, y) => x + y, 0);
     orderCount.innerText = itemAmount;
-    // return itemAmount;
 }
 
 cartTotal();
@@ -206,12 +203,11 @@ let closeCart = () => {
     cartPage.style.transform = "translateX(100%)";
 }
 
-let cartTotle = document.getElementById("cart-total");
-let orderPrice = document.getElementById("order-price");
 let shoppingCart = document.getElementById("shopping-cart");
 
 let generateCartItem = (dom) => {
     //dom參數
+    let cartTotle = document.getElementById("cart-total");
     if (basket.length !== 0){
         //cart not empty
         return dom.innerHTML = basket.map((x) => {
@@ -297,6 +293,7 @@ let removeItem = (id) => {
 
 //購物車金額加總
 let totalPrice = () => {
+    let orderPrice = document.getElementById("order-price");
     if (basket.length !== 0) {
         let amount = basket.map((x) => {
             let {id, item} = x;
