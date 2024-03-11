@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../footer_style.css">
 </head>
 <body>
-    <div class="page-wrapper">
+    <div class="page-wrapper" id="page-wrapper">
 
         <!-- header開始 -->
         <header class="navbar-menu">
@@ -88,12 +88,6 @@
             <div id="cart-container" class="shopping-cart"></div>
         </div>
         
-        <div class="order-info" id="order-info">
-            <div onclick="displayCart()">
-                <div><span id="order-title">目前</span><span id="order-count">1</span>訂單</div>
-                <div>共<span id="order-price">199</span>元</div>
-            </div>
-        </div>
         
         <!-- footer開始 -->
         <footer>
@@ -155,6 +149,18 @@
           </div>
         </footer>
         <!-- footer結尾 -->
+    </div>
+    <!-- 送出訂單按鈕 -->
+    <div class="order-info" id="order-info" >
+        <div onclick="displayCart()">
+            <div class="order-text">
+                <span id="order-title">目前</span>
+                <span id="order-count">1</span>訂單
+            </div>
+            <div class="order-text">共
+                <span id="order-price">199</span>元
+            </div>
+        </div>
     </div>
 </body>
 <script src="../data.js"></script>

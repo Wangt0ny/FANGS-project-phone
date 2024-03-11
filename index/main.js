@@ -339,8 +339,8 @@ let clearCart = () => {
 function scrollToAnchor(anchorName) {
     var anchor = document.getElementById(anchorName);
     var offset = anchor.offsetTop;
-    window.scrollTo({
-      top: offset - 150,
-    });
+    document.getElementById("page-wrapper").scrollTo({
+        top: offset - 30,
+        behavior: "smooth",
+    })
 }
-

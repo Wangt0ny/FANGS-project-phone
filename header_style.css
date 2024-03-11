@@ -29,7 +29,7 @@
 .cart-page {
     position: absolute;
     right: 0;
-    top: 100%;
+    top: calc(100% + 50px);
     color: #fff;
     width: 320px;
     height: 100vh;
