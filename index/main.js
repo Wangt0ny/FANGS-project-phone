@@ -1,3 +1,10 @@
+//自動調整成符合手機畫面高度
+let phoneHeight = () => {
+    document.documentElement.style.setProperty('--doc-height', `${window.innerHeight}px`)
+}
+window.addEventListener("resize", phoneHeight);
+phoneHeight();
+
 let shopMeat = document.getElementById("shop-meat");
 let shopSeafood = document.getElementById("shop-seafood");
 let shopVegetable = document.getElementById("shop-vegetable");
