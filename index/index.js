@@ -55,7 +55,7 @@ generateMenuCard(shopDumplings, dumplingsType);
 
 // 鍋物生成
 let generateHotPotCard = (dom, datalist) => {
-    return dom.innerHTML = datalist.map((x) => {//slice選取projectDataList內部分物件
+    return dom.innerHTML = datalist.map((x) => {
         let {img, product, price, id} = x;
         //從本機儲存裡找資料
         let search = basket.find((x) => x.id === id) || [];
@@ -74,7 +74,6 @@ let generateHotPotCard = (dom, datalist) => {
             
         `
     }).join("")
-
 }
 generateHotPotCard(shopHotPot, hotPotType);
 
@@ -120,7 +119,6 @@ let itemChecked = () => {
     } 
 }
 itemChecked();
-
 
 //增量數量函式
 
@@ -258,7 +256,7 @@ let generateOrderItem = () => {
     else {
         orderPriceContent.innerHTML = ``;
         orderContent.innerHTML = `
-        <div class="no-item"><h4>購物車是空的唷</h4></div>
+        <div class="no-item"><h4>無訂單紀錄</h4></div>
         `;
     }
 }
@@ -329,12 +327,25 @@ let hideCart = () => {
 
 //送單
 let sendCart = () => {
-    console.log("sendCart");
+    console.log("sendCart");  
+
+    let search = basket.find((x) => { 
+        return hotPotType.find((y) => {
+            return x.id === y.id
+        })
+    })
+
+    if(search) {
+        localStorage.setItem("isFirstOrder", "0");
+        hideHotPot();
+    }
+
     clearCart();
 }
 
 
 // console.log(document.getElementById("project01"))
+//刪除品項
 let removeItem = (id) => {
     let productItem = id;
     //移除物件
@@ -345,6 +356,10 @@ let removeItem = (id) => {
     cartTotal();
     updata(productItem.id);
     generateHotPotCard(shopHotPot, hotPotType);
+
+    if (basket.length === 0) {
+        hideCart();
+    }
     localStorage.setItem("data", JSON.stringify(basket));
 }
 
@@ -388,6 +403,34 @@ let clearCart = () => {
     localStorage.setItem("data", JSON.stringify(basket)); 
 }
 
+//預設選取鍋物種類
+let defaultChecked = () => {
+    document.getElementsByClassName("hotPot-label")[0].click();  
+}
+
+let hideHotPot = () => {
+    let isFirstOrder = localStorage.getItem("isFirstOrder");
+
+    if(isFirstOrder === "1") {
+        shopHotPot.style.display = "block";
+        document.getElementById("hotPot").style.display = "block";
+        defaultChecked();
+    }else {
+        shopHotPot.style.display = "none";
+        document.getElementById("hotPot").style.display = "none";
+    }
+}
+hideHotPot();
+
+let isFirstOrder = () => {
+    if(localStorage.getItem("isFirstOrder")) {
+        return;
+    }else {
+        localStorage.setItem("isFirstOrder", "1");
+        hideHotPot();
+    }  
+}
+isFirstOrder();
 
 //分類錨點
 function scrollToAnchor(anchorName) {
