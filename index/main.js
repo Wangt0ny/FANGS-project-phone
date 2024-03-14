@@ -95,7 +95,7 @@ let orderHotPot = (id) => {
     else{
         search.id = id.id
     }
-    generateCartItem(shoppingCart);
+    generateOrderItem();
     generateCartItem(cartContainer);
     generateCartButton();
     cartTotal();
@@ -140,7 +140,7 @@ let increment = (id) => {
         search.item += 1;
     }
     updata(productItem.id);
-    generateCartItem(shoppingCart);
+    generateOrderItem();
     generateCartItem(cartContainer);
     generateCartButton();
     localStorage.setItem("data", JSON.stringify(basket));
@@ -166,7 +166,7 @@ let decrement = (id) => {
     updata(productItem.id);
     //移除數量為0的物件
     basket = basket.filter((x) => x.item !== 0);//回傳此條件為true的物件
-    generateCartItem(shoppingCart);
+    generateOrderItem();
     generateCartItem(cartContainer);
     generateCartButton();
     localStorage.setItem("data", JSON.stringify(basket));
@@ -220,10 +220,10 @@ let closeOrder = () => {
 }
 
 //訂單記錄畫面
-let shoppingCart = document.getElementById("shopping-cart");
-let generateOrderItem = (dom) => {
-    //dom參數
-    let cartTotle = document.getElementById("cart-total");
+let generateOrderItem = () => {
+    let orderContent = document.getElementById("order-content");
+    
+    let orderPriceContent = document.getElementById("order-price-content");
     if (basket.length !== 0){
         //cart not empty
         let total = basket.map((x) => {
@@ -232,11 +232,16 @@ let generateOrderItem = (dom) => {
             return item * search.price;
         }).reduce((x, y) => x + y ,0);
 
-        return dom.innerHTML = basket.map((x) => {
+        orderPriceContent.innerHTML = `
+            <div class="order-price-info">訂單金額:<span>$${total}</span></div>
+            <div class="order-price-info">服務費:<span>$${Math.round(total * 10 / 100)}</span></div>
+            <div class="order-price-info">總金額:<span>$${total + Math.round(total * 10 / 100)}</span></div>
+        `;
+
+        return orderContent.innerHTML = basket.map((x) => {
             let {id , item} = x;//物件解構賦值變數
             let search = projectDataList.find((y) => y.id === id) || [];
             
-            cartTotle.innerHTML = `${total}`;
             return `
             <div class="cart-item">
                 <img src=${search.img} alt="">
@@ -251,13 +256,13 @@ let generateOrderItem = (dom) => {
         }).join("")
     }
     else {
-        cartTotle.innerHTML = ``;
-        dom.innerHTML = `
+        orderPriceContent.innerHTML = ``;
+        orderContent.innerHTML = `
         <div class="no-item"><h4>購物車是空的唷</h4></div>
         `;
     }
 }
-generateOrderItem(shoppingCart);
+generateOrderItem();
 
 
 //顯示購物車按鈕
@@ -334,7 +339,7 @@ let removeItem = (id) => {
     let productItem = id;
     //移除物件
     basket = basket.filter((x) => x.id !== productItem.id);
-    generateCartItem(shoppingCart);
+    generateOrderItem();
     generateCartItem(cartContainer);
     generateCartButton();
     cartTotal();
@@ -369,7 +374,7 @@ totalPrice();
 
 let clearCart = () => {
     basket = [];
-    generateCartItem(shoppingCart);
+    generateOrderItem();
     generateCartItem(cartContainer);
     generateCartButton();
     cartTotal();

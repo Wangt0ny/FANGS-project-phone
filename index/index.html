@@ -22,9 +22,9 @@
                 <div class="logo"><a href="./index.html"><img src="../image/Logo.png" alt="logo" width="80"></a></div>
                 
                 <div class="login">
-                    <a class="login-btn" href="../login/login.html" target="_blank"><i class="bi bi-person-fill"></i></a>
+                    <span id="table-number">桌號 1</span>
                     <a class="login-btn" onclick="openOrder()">
-                        <i class="bi bi-cart"></i>
+                        <i class="bi bi-receipt-cutoff"></i>
                     </a>
                 </div>
             </nav>
@@ -32,14 +32,14 @@
             <div id="order-page">
                 <i onclick="closeOrder()" class="bi bi-x-lg"></i>
                 <div class="cart">訂單紀錄</div>
-                <div class="shopping-cart" id="shopping-cart">
+                <div id="order-content" class="shopping-cart">
                     <!-- 自動生成 -->
                 </div>
 
-                <div class="cart-total" id="cart-total">
-                    <!-- <div ></div>
-                    <div ></div>
-                    <div ></div> -->
+                <div class="order-price-content" id="order-price-content">
+                    <div class="order-price-info">訂單金額:<span></span></div>
+                    <div class="order-price-info">服務費:<span></span></div>
+                    <div class="order-price-info">總金額:<span></span></div>
                 </div>
 
                 <!-- <div class="cart-btn-group">
