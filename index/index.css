@@ -34,7 +34,7 @@ body {
     list-style: none;
     display: flex;
     height: min-content;
-    top: 86px;
+    top: 70px;
     padding: 0;
     margin: 0;
     font-size: 18px;
@@ -170,7 +170,7 @@ body {
     position: fixed;
     bottom: 0px;
     padding: 0px 5px;
-    height: calc(100% - 135px);
+    height: calc(100% - 119px);
     width: 100%;
     transform: translateY(120%);
     transition: transform ease-in-out .5s;
