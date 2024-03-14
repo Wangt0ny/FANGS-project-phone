@@ -1,3 +1,7 @@
+:root {
+    --doc-height: 100%
+}
+
 .navbar-menu {
     /* outline: 1px solid red; */
     position: fixed;
@@ -6,7 +10,6 @@
     padding: 5px 0;
     width: 100%;
     height: 86px;
-    backdrop-filter: blur(20px);
     background-color: rgba(247, 230, 174, 0.5);
     /* border-bottom: 1px solid black; */
     z-index: 10;
@@ -26,13 +29,13 @@
 }
 
 /* 購物車 */
-.cart-page {
+#order-page {
     position: absolute;
     right: 0;
     top: calc(100% + 50px);
     color: #fff;
-    width: 320px;
-    height: 100vh;
+    width: 100%;
+    height: calc(var(--doc-height) - 135px);
     background-color:rgba(44, 41, 41, .9);
     padding: 5px 5px 0px 5px;
     transform: translateX(100%);
@@ -64,7 +67,7 @@
     align-items: center;
     width: 100%;
     overflow-y: scroll;
-    height: 60vh;
+    height: 60%;
 }
 
 .shopping-cart::-webkit-scrollbar {

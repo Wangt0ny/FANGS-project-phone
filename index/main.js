@@ -190,31 +190,91 @@ let updata = (id) => {
 
 
 //購物車加總顯示
-let orderCount = document.getElementById("order-count");
 let cartTotal = () => {
+    let orderCount = document.getElementById("order-count");
     let itemAmount = basket.map((x) => x.item).reduce((x, y) => x + y, 0);
     orderCount.innerText = itemAmount;
 }
 
 cartTotal();
 
-//購物車
+//開關購物車
 
-let openCart = () => {
-    let cartPage = document.getElementById("cart-page");
-    cartPage.style.transform = "translateX(0%)";
+let openOrder = () => {
+    let orderPage = document.getElementById("order-page");
+    orderPage.style.transform = "translateX(0%)";
+
+    let orderInfo = document.getElementById("order-info");
+    if (orderInfo.style.display == "block") {
+        orderInfo.style.display = "none";
+    }else {
+        return;
+    }
+    hideCart();
 }
 
-let closeCart = () => {
-    let cartPage = document.getElementById("cart-page");
-    cartPage.style.transform = "translateX(100%)";
+let closeOrder = () => {
+    let orderPage = document.getElementById("order-page");
+    orderPage.style.transform = "translateX(100%)";
+    generateCartButton();
 }
 
+//訂單記錄畫面
 let shoppingCart = document.getElementById("shopping-cart");
-
-let generateCartItem = (dom) => {
+let generateOrderItem = (dom) => {
     //dom參數
     let cartTotle = document.getElementById("cart-total");
+    if (basket.length !== 0){
+        //cart not empty
+        let total = basket.map((x) => {
+            let {id, item} = x;
+            let search = projectDataList.find((y) => y.id === id) || [];
+            return item * search.price;
+        }).reduce((x, y) => x + y ,0);
+
+        return dom.innerHTML = basket.map((x) => {
+            let {id , item} = x;//物件解構賦值變數
+            let search = projectDataList.find((y) => y.id === id) || [];
+            
+            cartTotle.innerHTML = `${total}`;
+            return `
+            <div class="cart-item">
+                <img src=${search.img} alt="">
+                <div class="cart-info">
+                    <p class="cart-info-title">${search.product}</p>
+                    <div class="price">
+                        <p>$ ${search.price} x ${item} = ${search.price * item}</p>
+                    </div>
+                </div>
+            </div>
+            `
+        }).join("")
+    }
+    else {
+        cartTotle.innerHTML = ``;
+        dom.innerHTML = `
+        <div class="no-item"><h4>購物車是空的唷</h4></div>
+        `;
+    }
+}
+generateOrderItem(shoppingCart);
+
+
+//顯示購物車按鈕
+let generateCartButton = () => {
+    if (basket.length !== 0){
+        document.getElementById("order-info").style.display = "block";
+    }else {
+        document.getElementById("order-info").style.display = "none";
+    }
+}
+generateCartButton();
+
+
+//生成購物車品項
+let cartContainer = document.getElementById("cart-container");
+let generateCartItem = (dom) => {
+    //dom參數
     if (basket.length !== 0){
         //cart not empty
         return dom.innerHTML = basket.map((x) => {
@@ -238,31 +298,16 @@ let generateCartItem = (dom) => {
     }
     else {
         //cart empty
-        cartTotle.innerHTML = ``;
         dom.innerHTML = `
         <div class="no-item"><h4>購物車是空的唷</h4></div>
         `;
     }
 }
-
-generateCartItem(shoppingCart);
-
-//顯示購物車按鈕
-let generateCartButton = () => {
-    if (basket.length !== 0){
-        document.getElementById("order-info").style.display = "block";
-    }else {
-        document.getElementById("order-info").style.display = "none";
-    }
-}
-generateCartButton();
-
-//開啟購物車
-let cartContainer = document.getElementById("cart-container");
 generateCartItem(cartContainer);
 
+// 開啟購物車
 let displayCart = () =>{
-    document.getElementById("order-page").style.transform = "translateY(0%)";
+    document.getElementById("cart-page").style.transform = "translateY(0%)";
     console.log("ok");
     document.querySelector("#order-info > div").setAttribute('onclick',"sendCart()");
     document.getElementById("order-title").innerHTML = "送出";
@@ -271,7 +316,7 @@ let displayCart = () =>{
 
 //隱藏購物車
 let hideCart = () => {
-    document.getElementById("order-page").style.transform = "translateY(120%)";
+    document.getElementById("cart-page").style.transform = "translateY(120%)";
     document.querySelector("#order-info > div").setAttribute('onclick',"displayCart()");
     document.getElementById("order-title").innerHTML = "目前";
     document.querySelector("#order-info > div > div:nth-child(2)").style.display = "block";
