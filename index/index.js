@@ -5,6 +5,24 @@ let phoneHeight = () => {
 window.addEventListener("resize", phoneHeight);
 phoneHeight();
 
+let getTableNumber = () => {
+    let tableNumber = document.getElementById("table-number");
+    let urlParams = new URLSearchParams(location.search);
+    tableNumber.innerHTML = `桌號 ${urlParams.get("tablenum")}`;
+    return {
+        tablenum: urlParams.get("tablenum"),
+        orderid: urlParams.get("orderid")
+    };
+}
+getTableNumber();
+
+let getMenu = () => {
+    $.get("/menulist", function(data) {
+        projectDataList = data;
+    })
+};
+getMenu();
+
 let shopMeat = document.getElementById("shop-meat");
 let shopSeafood = document.getElementById("shop-seafood");
 let shopVegetable = document.getElementById("shop-vegetable");
@@ -222,6 +240,16 @@ let generateOrderItem = () => {
     let orderContent = document.getElementById("order-content");
     
     let orderPriceContent = document.getElementById("order-price-content");
+
+    $.ajax({
+        url: "",
+        method: "POST",
+        data: JSON.stringify(getTableNumber()),
+        contentType: "application/json"
+    })
+    .then(function(data) {
+        
+    })
     if (basket.length !== 0){
         //cart not empty
         let total = basket.map((x) => {
@@ -328,6 +356,15 @@ let hideCart = () => {
 //送單
 let sendCart = () => {
     console.log("sendCart");  
+    $.ajax({
+        url: "",
+        method: "POST",
+        data: JSON.stringify(basket),
+        contentType: "application/json"
+    })
+    .then(function(result) {
+        console.log(result);
+    })
 
     let search = basket.find((x) => { 
         return hotPotType.find((y) => {
