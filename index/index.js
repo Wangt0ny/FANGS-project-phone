@@ -474,7 +474,7 @@ function scrollToAnchor(anchorName) {
     var anchor = document.getElementById(anchorName);
     var offset = anchor.offsetTop;
     document.getElementById("page-wrapper").scrollTo({
-        top: offset - 30,
+        top: offset - 5,
         behavior: "smooth",
     })
 }
